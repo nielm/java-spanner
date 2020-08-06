@@ -40,7 +40,8 @@ import org.junit.runners.JUnit4;
 public class QuickstartSampleIT {
   private boolean ownedInstance = false;
   private String instanceId = System.getProperty("spanner.test.instance");
-  private String dbId = System.getProperty("spanner.quickstart.database", "sample");
+  private String dbId =
+      System.getProperty("spanner.quickstart.database", SpannerSampleIT.formatForTest("sample"));
   private ByteArrayOutputStream bout;
   private PrintStream stdOut = System.out;
   private PrintStream out;
@@ -66,8 +67,7 @@ public class QuickstartSampleIT {
         // Create a test database.
         spanner
             .getDatabaseAdminClient()
-            .createDatabase(
-                instanceId, SpannerSampleIT.formatForTest(dbId), ImmutableList.<String>of())
+            .createDatabase(instanceId, dbId, ImmutableList.<String>of())
             .get();
       }
     }
