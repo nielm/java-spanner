@@ -71,7 +71,7 @@ public class SpannerSampleIT {
     SpannerOptions options = SpannerOptions.newBuilder().build();
     spanner = options.getService();
     if (instanceId == null) {
-      instanceId = formatForTest("samples-test");
+      instanceId = formatForTest("samples");
       InstanceAdminClient instanceAdmin = spanner.getInstanceAdminClient();
       // Get first available instance config and create an instance.
       InstanceConfig config = instanceAdmin.listInstanceConfigs().iterateAll().iterator().next();
@@ -404,7 +404,11 @@ public class SpannerSampleIT {
     return input.split(search).length - 1;
   }
 
-  private static String formatForTest(String name) {
-    return name + "-" + UUID.randomUUID().toString().substring(0, 20);
+  static String formatForTest(String name) {
+    String res = name + "-" + UUID.randomUUID().toString().substring(0, 20);
+    if (res.endsWith("-")) {
+      res = res.substring(0, res.length() - 1);
+    }
+    return res;
   }
 }
