@@ -17,10 +17,10 @@
 package com.google.cloud.spanner;
 
 import com.google.api.core.ApiFuture;
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.function.Function;
+import java.util.List;
 
 /** Interface for result sets returned by async query methods. */
 public interface AsyncResultSet extends ResultSet {
@@ -203,7 +203,7 @@ public interface AsyncResultSet extends ResultSet {
    *     inline executor such as {@code MoreExecutors.directExecutor()}; using such an executor may
    *     degrade the performance of the Spanner library.
    */
-  <T> ApiFuture<ImmutableList<T>> toListAsync(
+  <T> ApiFuture<List<T>> toListAsync(
       Function<StructReader, T> transformer, Executor executor);
 
   /**
@@ -222,5 +222,5 @@ public interface AsyncResultSet extends ResultSet {
    *
    * @param transformer function which will be used to transform the row. It should not return null.
    */
-  <T> ImmutableList<T> toList(Function<StructReader, T> transformer) throws SpannerException;
+  <T> List<T> toList(Function<StructReader, T> transformer) throws SpannerException;
 }
